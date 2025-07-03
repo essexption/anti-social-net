@@ -8,13 +8,15 @@ import Register from './pages/Register'
 import Public from './pages/Public'
 import PrivateRoute from './components/Private'
 import PublicRoute from './components/toHome'
+import AsideNav from './components/AsideNav/AsideNav'
 
 function App() {
 
   return <>
+    
     <Routes>
-      <Route path="/" element={<Public /> } />
-      <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>}/>
+      <Route path="/" element={<PublicRoute><Public /></PublicRoute> } />
+      <Route path="/home" element={<PrivateRoute><AsideNav/></PrivateRoute>}/>
       <Route path="/post/:id" element={ <PostDetails /> } />
       <Route path="/user/:id" element={ <Profile /> } />
       <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
