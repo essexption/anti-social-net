@@ -15,7 +15,7 @@ function App() {
   return <>
     
     <Routes>
-      <Route path="/" element={<PublicRoute><Public /></PublicRoute> } />
+      <Route path="/" element={<PublicRoute><Public /></PublicRoute>} />
       <Route path="/home" element={<PrivateRoute><AsideNav/></PrivateRoute>}/>
       <Route path="/post/:id" element={ <PostDetails /> } />
       <Route path="/user/:id" element={ <Profile /> } />

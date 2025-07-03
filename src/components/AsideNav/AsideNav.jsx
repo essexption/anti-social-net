@@ -1,13 +1,12 @@
-import logo from '../../assets/ttt.png'
-import './AsideNav.css'
 import Home from '../../pages/Home'
+import logo from '../../assets/ttt.png'
+import  './AsideNav.css'
 
 const AsideNav = () => {
     return (<>
-
         <nav className="navbar bg-dark border-bottom border-body" id="headers0" data-bs-theme="dark">
             <div className="container-fluid" id="headers">
-                <a className="navbar-brand"><img id= "logo" src={logo} /></a>
+                <a className="navbar-brand"><img src={logo} /></a>
                 <h1>ANtiSocial Net  </h1>
                 <form className="d-flex" role="search">
                     <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
@@ -15,6 +14,7 @@ const AsideNav = () => {
                 </form>
             </div>
         </nav>
+
 
         <div className="d-flex align-items-start">
             <div className="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -26,13 +26,16 @@ const AsideNav = () => {
             <div className="tab-content" id="v-pills-tabContent"  >
                 <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
                     <main>
-                        <Home></Home>
+                        <Home />
                     </main>
-                
                 </div>
-                
+                <div className="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">...</div>
+                <div className="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">...</div>
+                <div className="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">...</div>
+                <div className="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">...</div>
             </div>
         </div>
+
     </>)
 }
 
