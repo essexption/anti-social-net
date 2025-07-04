@@ -1,23 +1,67 @@
 import { Container, Form, Button } from 'react-bootstrap'
 import {useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext' 
+
 
 export default function Login() {
   const [nickname, setNickName] = useState("")
   const [contraseña, setContraseña] = useState("") 
+  const [intentos, setIntentos] = useState(0)
+  const [fecha,setFecha] = useState(new Date())
   const { login } = useAuth() 
   const navigate = useNavigate()
 
   const mLogin = async (e) => {
     e.preventDefault()
     const isValidUser = await validateUser()
-    if (!isValidUser || contraseña !== "1234") {
-      alert("El usuario o la contraseña son incorrectos")
+    console.log(isValidUser)
+    
+    
+    
+    if (!isValidUser) {
+      alert("El usuario no está registrado")
       return
     }
-    login(isValidUser)
-    navigate("/home")
+    else if(isValidUser.password != contraseña && contraseña !== "1234" && intentos <=5){
+      alert("La contraseña ingresada es incorrecta")
+      setIntentos(intentos+1)
+      //Puede intentar hasta  5 veces sino debe esperar 10 minutos
+      
+    }
+    else if(intentos > 5) {
+      if (intentos == 6) {
+        fecha.setMinutes(fecha.getMinutes()+10)
+        setFecha(fecha)
+      }
+      
+        if(new Date() <= fecha){
+          setIntentos(intentos+1)
+          const advertencia = document.getElementById('advertencia')
+          advertencia.style.display = 'block'
+          advertencia.textContent = "Se excedió la máxima cantidad de intentos. Intentelo más tarde"
+          advertencia.style.color = 'red'
+          setTimeout(()=> {
+            setNickName("")
+            setContraseña("")     
+            advertencia.style.display = 'none'
+          },2000)          
+        }
+        else{
+          setFecha(new Date())
+          setIntentos(0)
+          advertencia.style.display = 'none'
+          
+        }    
+    }
+    else{
+      if(contraseña === "1234"){
+        setContraseña(isValidUser.password)
+        console.log(contraseña)
+      } 
+      login(isValidUser)
+      navigate("/home")
+    }
   }
 
   const toRegister = () =>{
@@ -56,6 +100,7 @@ export default function Login() {
         <Container className='d-flex flex-column justify-content-center align-items-center'>
           <Form onSubmit={mLogin}>
             <h1 className='text-black mb-4 border-0 border-bottom border-dark p-5'>Iniciar Sesión</h1>
+            
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Control className='mb-3' 
                 type="text" 
@@ -64,6 +109,7 @@ export default function Login() {
                 placeholder="Nombre de usuario"
               />
             </Form.Group>
+            
 
             <Form.Group className="mb-3" controlId="formPassword">
               <Form.Control 
@@ -75,10 +121,13 @@ export default function Login() {
             </Form.Group>
 
             <Button variant="primary" type="submit">
-              Iniciar sesión
+              Iniciar sesión 
             </Button>
+            
+            <span id="advertencia" style={{display: 'none'}}></span>
           </Form>
         </Container>
+        <Link to="/recuperar">¿Olvido su contraseña?</Link>
         <div className='d-flex flex-row gap-2 mt-5'>
           <p>No tienes una cuenta?</p>
           <a className='text-primary' onClick={toRegister}>Registrarse</a>

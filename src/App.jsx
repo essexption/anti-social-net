@@ -8,6 +8,7 @@ import Register from './pages/Register'
 import Public from './pages/Public'
 import PrivateRoute from './components/Private'
 import PublicRoute from './components/toHome'
+import Recuperar from './pages/Recuperar'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <Route path="/user/:id" element={ <Profile /> } />
       <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+      <Route path="/recuperar" element={<PublicRoute><Recuperar /></PublicRoute>} />
     </Routes>
   </>
 }

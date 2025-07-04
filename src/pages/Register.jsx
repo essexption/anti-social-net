@@ -28,7 +28,7 @@ export default function Register() {
       return;
     }
 
-    const yaExisteUsuario = usuarios.some(u => u.nickName === nickName);
+    const yaExisteUsuario = usuarios.some(u => u.nickname === nickName);
     const yaExisteMail = usuarios.some(u => u.mail === email);
 
     if (yaExisteUsuario) {
@@ -47,10 +47,10 @@ export default function Register() {
         body: JSON.stringify({
           nickname: nickName,
           mail: email,
-          password: "123456"
+          password: contraseña
         })
       });
-
+      console.log(res)
       if (!res.ok) throw new Error("Error al registrar");
 
       const usuarioCreado = await res.json();
@@ -90,7 +90,7 @@ export default function Register() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-            <Form.Control type="password" value={contraseña} onChange={(e) => setContraseña(e.target.value)}
+            <Form.Control type="password" value={contraseña} onChange={(e) => {setContraseña(e.target.value);console.log(contraseña)}}
                 placeholder="Contraseña"/> 
             </Form.Group>
 
